@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 'reports',
 'settings_app',
 'authentication',
+'dashboard',
 ]
 
 MIDDLEWARE = [

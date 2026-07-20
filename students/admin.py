@@ -1,30 +1,26 @@
 from django.contrib import admin
-from .models import Department, Course, AcademicYear
+from .models import Student
 
 
-@admin.register(Department)
-class DepartmentAdmin(admin.ModelAdmin):
-    list_display = ("name", "code", "institution", "is_active")
-    search_fields = ("name", "code")
+@admin.register(Student)
+class StudentAdmin(admin.ModelAdmin):
 
-
-@admin.register(Course)
-class CourseAdmin(admin.ModelAdmin):
     list_display = (
-        "name",
-        "department",
-        "institution",
-        "duration_years",
-        "internship_months",
-        "is_active",
+        "admission_no",
+        "first_name",
+        "last_name",
+        "mobile",
+        "status",
     )
 
+    search_fields = (
+        "admission_no",
+        "first_name",
+        "last_name",
+        "mobile",
+    )
 
-@admin.register(AcademicYear)
-class AcademicYearAdmin(admin.ModelAdmin):
-    list_display = (
-        "year",
-        "start_date",
-        "end_date",
-        "is_current",
+    list_filter = (
+        "status",
+        "gender",
     )

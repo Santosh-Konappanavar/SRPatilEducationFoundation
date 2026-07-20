@@ -1,42 +1,134 @@
 from django.db import models
-from core.models import BaseModel
 from institutions.models import Institution
+from core.models import BaseModel
 
 
-class Department(BaseModel):
-    institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
+class Student(BaseModel):
 
-    name = models.CharField(max_length=100)
+    GENDER_CHOICES = [
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+        ('Other', 'Other'),
+    ]
 
-    code = models.CharField(max_length=20)
+    ADMISSION_TYPE = [
+        ('PUC', 'PUC'),
+        ('Diploma', 'Diploma Lateral Entry'),
+    ]
+
+    STATUS_CHOICES = [
+        ('Applicant', 'Applicant'),
+        ('Admitted', 'Admitted'),
+        ('Active', 'Active'),
+        ('Internship', 'Internship'),
+        ('Completed', 'Completed'),
+        ('Discontinued', 'Discontinued'),
+        ('Transfer', 'Transfer'),
+        ('Alumni', 'Alumni'),
+    ]
+
+    institution = models.ForeignKey(
+        Institution,
+        on_delete=models.CASCADE
+    )
+
+    admission_no = models.CharField(
+        max_length=30,
+        unique=True
+    )
+
+    first_name = models.CharField(max_length=100)
+
+    middle_name = models.CharField(
+        max_length=100,
+        blank=True
+    )
+
+    last_name = models.CharField(max_length=100)
+
+    gender = models.CharField(
+        max_length=10,
+        choices=GENDER_CHOICES
+    )
+
+    dob = models.DateField()
+
+    mobile = models.CharField(max_length=15)
+
+    email = models.EmailField(blank=True)
+
+    aadhaar = models.CharField(
+        max_length=20,
+        blank=True
+    )
+
+    admission_type = models.CharField(
+        max_length=20,
+        choices=ADMISSION_TYPE
+    )
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="Applicant"
+    )
 
     def __str__(self):
-        return self.name
+        return f"{self.admission_no} - {self.first_name} {self.last_name}"
 
 
-class Course(BaseModel):
-    institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
+class StudentParent(BaseModel):
 
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    student = models.OneToOneField(
+        Student,
+        on_delete=models.CASCADE,
+        related_name="parent"
+    )
 
-    name = models.CharField(max_length=100)
+    father_name = models.CharField(max_length=200)
 
-    duration_years = models.PositiveIntegerField()
+    father_mobile = models.CharField(
+        max_length=15,
+        blank=True
+    )
 
-    internship_months = models.PositiveIntegerField(default=6)
+    father_occupation = models.CharField(
+        max_length=100,
+        blank=True
+    )
+
+    father_income = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0
+    )
+
+    mother_name = models.CharField(max_length=200)
+
+    mother_mobile = models.CharField(
+        max_length=15,
+        blank=True
+    )
+
+    mother_occupation = models.CharField(
+        max_length=100,
+        blank=True
+    )
+
+    guardian_name = models.CharField(
+        max_length=200,
+        blank=True
+    )
+
+    guardian_mobile = models.CharField(
+        max_length=15,
+        blank=True
+    )
+
+    relationship = models.CharField(
+        max_length=50,
+        blank=True
+    )
 
     def __str__(self):
-        return self.name
-
-
-class AcademicYear(BaseModel):
-    year = models.CharField(max_length=20)
-
-    start_date = models.DateField()
-
-    end_date = models.DateField()
-
-    is_current = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.year
+        return f"{self.student.admission_no} - Parent"

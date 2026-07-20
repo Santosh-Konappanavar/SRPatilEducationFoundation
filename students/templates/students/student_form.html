@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h3>Student Admission</h3>
+    </div>
+
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label>Institution</label>
+            {{ form.institution }}
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>First Name</label>
+            {{ form.first_name }}
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>Middle Name</label>
+            {{ form.middle_name }}
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>Last Name</label>
+            {{ form.last_name }}
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>Gender</label>
+            {{ form.gender }}
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>Date of Birth</label>
+            {{ form.dob }}
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>Mobile</label>
+            {{ form.mobile }}
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label>Email</label>
+            {{ form.email }}
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label>Aadhaar Number</label>
+            {{ form.aadhaar }}
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label>Admission Type</label>
+            {{ form.admission_type }}
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label>Status</label>
+            {{ form.status }}
+          </div>
+        </div>
+
+        <hr />
+
+        <button type="submit" class="btn btn-success">Save Student</button>
+
+        <a href="{% url 'student_list' %}" class="btn btn-secondary">Cancel</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

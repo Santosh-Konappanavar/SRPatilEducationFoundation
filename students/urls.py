@@ -10,5 +10,10 @@ urlpatterns = [
         views.student_create,
         name="student_create",
     ),
+    path(
+    "admissions/dashboard/",
+    views.admission_dashboard,
+    name="admission_dashboard",
+),
 
 ]

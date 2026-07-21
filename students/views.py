@@ -62,3 +62,30 @@ def student_create(request):
             "form": form
         }
     )
+
+
+@login_required
+def admission_dashboard(request):
+
+    profile = UserProfile.objects.get(user=request.user)
+
+    if profile.role == "Administrator":
+        students = Student.objects.all().order_by("-id")
+    else:
+        students = Student.objects.filter(
+            institution=profile.institution
+        ).order_by("-id")
+
+    context = {
+        "total_students": students.count(),
+        "new_admissions": students.filter(status="Admitted").count(),
+        "active_students": students.filter(status="Active").count(),
+        "pending_students": students.filter(status="Applicant").count(),
+        "students": students[:10],
+    }
+
+    return render(
+        request,
+        "students/admission_dashboard.html",
+        context,
+    )

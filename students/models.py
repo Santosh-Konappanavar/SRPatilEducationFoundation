@@ -1,6 +1,6 @@
 from django.db import models
-from institutions.models import Institution
 from core.models import BaseModel
+from institutions.models import Department, Course, AcademicYear, Institution
 
 
 class Student(BaseModel):
@@ -132,3 +132,42 @@ class StudentParent(BaseModel):
 
     def __str__(self):
         return f"{self.student.admission_no} - Parent"
+class StudentAcademic(BaseModel):
+
+    student = models.OneToOneField(
+        Student,
+        on_delete=models.CASCADE,
+        related_name="academic"
+    )
+
+    department = models.ForeignKey(
+        Department,
+        on_delete=models.PROTECT
+    )
+
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.PROTECT
+    )
+
+    academic_year = models.ForeignKey(
+        AcademicYear,
+        on_delete=models.PROTECT
+    )
+
+    semester = models.PositiveSmallIntegerField(default=1)
+
+    batch = models.CharField(
+        max_length=30,
+        blank=True
+    )
+
+    roll_number = models.CharField(
+        max_length=30,
+        blank=True
+    )
+
+    admission_date = models.DateField()
+
+    def __str__(self):
+        return f"{self.student.admission_no} - Academic"

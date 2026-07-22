@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+
+            <h3>
+                👤 Student Profile
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <h5>Student Information</h5>
+
+                    <table class="table">
+
+                        <tr>
+                            <th>Admission No</th>
+                            <td>{{ student.admission_no }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Name</th>
+                            <td>{{ student.first_name }} {{ student.last_name }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Gender</th>
+                            <td>{{ student.gender }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Mobile</th>
+                            <td>{{ student.mobile }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ student.email }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Status</th>
+                            <td>{{ student.status }}</td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <h5>Parent Information</h5>
+
+                    {% if parent %}
+
+                    <table class="table">
+
+                        <tr>
+                            <th>Father</th>
+                            <td>{{ parent.father_name }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Mother</th>
+                            <td>{{ parent.mother_name }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Guardian</th>
+                            <td>{{ parent.guardian_name }}</td>
+                        </tr>
+
+                    </table>
+
+                    {% else %}
+
+                    <p>No parent details available.</p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <h5>Academic Information</h5>
+
+            {% if academic %}
+
+            <table class="table">
+
+                <tr>
+                    <th>Department</th>
+                    <td>{{ academic.department }}</td>
+                </tr>
+
+                <tr>
+                    <th>Course</th>
+                    <td>{{ academic.course }}</td>
+                </tr>
+
+                <tr>
+                    <th>Academic Year</th>
+                    <td>{{ academic.academic_year }}</td>
+                </tr>
+
+                <tr>
+                    <th>Semester</th>
+                    <td>{{ academic.semester }}</td>
+                </tr>
+
+                <tr>
+                    <th>Batch</th>
+                    <td>{{ academic.batch }}</td>
+                </tr>
+
+                <tr>
+                    <th>Roll Number</th>
+                    <td>{{ academic.roll_number }}</td>
+                </tr>
+
+            </table>
+
+            {% else %}
+
+            <p>No academic details available.</p>
+
+            {% endif %}
+
+            <div class="mt-4">
+
+                <a href="{% url 'student_list' %}"
+                   class="btn btn-secondary">
+
+                    ← Back
+
+                </a>
+
+                <a href="#"
+                   class="btn btn-warning">
+
+                    ✏ Edit
+
+                </a>
+
+                <a href="#"
+                   class="btn btn-success">
+
+                    💰 Collect Fees
+
+                </a>
+
+                <a href="#"
+                   class="btn btn-primary">
+
+                    🖨 Print
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -5,15 +5,25 @@ urlpatterns = [
 
     path("", views.student_list, name="student_list"),
 
-    path(
-        "new/",
-        views.student_create,
-        name="student_create",
-    ),
+    # path(
+    #     "new/",
+    #     views.student_create,
+    #     name="student_create",
+    # ),
     path(
     "admissions/dashboard/",
     views.admission_dashboard,
     name="admission_dashboard",
+),
+path(
+    "admission/new/",
+    views.admission_create,
+    name="admission_create",
+),
+path(
+    "<int:pk>/",
+    views.student_profile,
+    name="student_profile",
 ),
 
 ]
